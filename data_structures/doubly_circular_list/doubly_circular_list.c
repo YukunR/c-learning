@@ -341,6 +341,29 @@ void *list_get_at(DoublyCircularList *list, size_t index)
     return (void *)target_node->data;
 }
 
+// set
+bool list_set_at(DoublyCircularList *list, size_t index, void *data)
+{
+    if (!list)
+    {
+        fprintf(stderr, "List doesn't exist\n");
+        return false;
+    }
+    if (index >= list->length || index < 0)
+    {
+        fprintf(stderr, "Index %d out of bounds [0, %d)\n", index, list->length);
+        return false;
+    }
+
+    Node *target_node = list_get_node_at(list, index);
+    if (!target_node)
+    {
+        return false;
+    }
+    target_node->data = data;
+    return true;
+}
+
 // find
 int list_find(DoublyCircularList *list, const void *data)
 {
@@ -411,6 +434,45 @@ bool list_is_empty(DoublyCircularList *list)
     return list->length == 0;
 }
 
+// list operation
+void list_reverse(DoublyCircularList *list)
+{
+    if (!list)
+    {
+        fprintf(stderr, "List doesn't exist\n");
+        return;
+    }
+
+    Node *cur = list->head;
+    for (int i = 0; i < list->length + 1; i++)
+    {
+        Node *temp = cur->next;
+        cur->next = cur->prev;
+        cur->prev = temp;
+        cur = temp;
+    }
+}
+
+DoublyCircularList *list_clone(DoublyCircularList *list, void *(*clone_data)(const void *data))
+{
+    if (!list)
+    {
+        fprintf(stderr, "List doesn't exist\n");
+        return NULL;
+    }
+
+    DoublyCircularList *new_list = list_create(list->compare);
+    // copy old list
+    Node *cur = list->head->next;
+    for (int i = 0; i < list->length; i++)
+    {
+        list_insert_tail(new_list, clone_data ? clone_data(cur->data) : cur->data);
+        cur = cur->next;
+    }
+
+    return new_list;
+}
+
 // print functions
 void list_print_forward(DoublyCircularList *list, void (*print_func)(const void *data))
 {
@@ -426,6 +488,7 @@ void list_print_forward(DoublyCircularList *list, void (*print_func)(const void 
         print_func(cur->data);
         cur = cur->next;
     }
+    printf("\n");
 }
 
 void list_print_backward(DoublyCircularList *list, void (*print_func)(const void *data))
@@ -442,4 +505,5 @@ void list_print_backward(DoublyCircularList *list, void (*print_func)(const void
         print_func(cur->data);
         cur = cur->prev;
     }
+    printf("\n");
 }

@@ -5,7 +5,50 @@
 #include "doubly_circular_list.h"
 #include "../commen/commen.h"
 
-int main()
+void test_reverse_and_clone()
+{
+    printf("=== Test list_clone and list_reverse ===\n");
+
+    // 创建原始链表
+    DoublyCircularList *list = list_create(compare_int);
+    for (int i = 1; i <= 5; i++)
+    {
+        int* val = malloc(sizeof(int));
+        *val = i;
+        list_insert_tail(list, val);
+    }
+
+    printf("Original list: ");
+    list_print_forward(list, print_int);
+
+    // 克隆链表 浅拷贝
+    DoublyCircularList *cloned = list_clone(list, NULL);
+    printf("Cloned list (before reverse): ");
+    list_print_forward(cloned, print_int);
+
+    // 深拷贝
+    DoublyCircularList *deep_cloned = list_clone(list, clone_int);
+    printf("Deep Cloned list (before reverse): ");
+    list_print_forward(deep_cloned, print_int);
+
+    // 反转原链表
+    list_reverse(list);
+    printf("Original list (after reverse): ");
+    list_print_forward(list, print_int);
+
+    // 打印深拷贝链表和浅拷贝链表
+    printf("Deep cloned list (after reverse of list): ");
+    list_print_forward(deep_cloned, print_int);
+    printf("Cloned list (after reverse of list): ");
+    list_print_forward(cloned, print_int);
+
+    // 清理内存
+    list_destroy(&list);
+    list_destroy(&cloned);
+    list_destroy(&deep_cloned);
+}
+
+void test_list_operation()
 {
     printf("=== Testing Doubly Circular Linked List ===\n");
 
@@ -14,7 +57,7 @@ int main()
     if (!list)
     {
         fprintf(stderr, "Failed to create list\n");
-        return 1;
+        return;
     }
     printf("is empty: %d\n", list_is_empty(list));
 
@@ -76,6 +119,9 @@ int main()
     {
         printf("List successfully destroyed.\n");
     }
+}
 
-    return 0;
+int main()
+{
+    test_reverse_and_clone();
 }
