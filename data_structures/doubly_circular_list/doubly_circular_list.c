@@ -6,7 +6,6 @@ Implement of linked list.
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <math.h>
 #include "doubly_circular_list.h"
 #include "../commen/commen.h"
 
