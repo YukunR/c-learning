@@ -254,6 +254,20 @@ bool list_remove_at(DoublyCircularList *list, size_t index)
     return true;
 }
 
+void list_clear(DoublyCircularList *list)
+{
+    if (!list)
+    {
+        fprintf(stderr, "List doesn't exist\n");
+        return;
+    }
+
+    while (!list_is_empty(list))
+    {
+        list_remove_head(list);
+    }
+}
+
 // get functions
 Node *list_get_node_at(DoublyCircularList *list, size_t index)
 {

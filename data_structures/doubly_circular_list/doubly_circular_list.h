@@ -30,6 +30,7 @@ bool list_insert_at(DoublyCircularList *list, size_t index, void *data);
 bool list_remove_head(DoublyCircularList *list);
 bool list_remove_tail(DoublyCircularList *list);
 bool list_remove_at(DoublyCircularList *list, size_t index);
+void list_clear(DoublyCircularList *list);
 
 // 访问操作
 Node *list_get_node_at(DoublyCircularList *list, size_t index);
