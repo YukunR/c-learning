@@ -91,7 +91,7 @@ size_t stack_size(Stack *stack)
     if (!stack)
     {
         fprintf(stderr, "Stack doesn't exist\n");
-        return true;
+        return 0;
     }
     return list_size(stack->list);
 }
