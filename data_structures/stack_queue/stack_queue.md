@@ -215,12 +215,12 @@ stack_queue/
 │   ├── stack.h
 │   ├── stack_list.c      # 基于链表的实现
 │   ├── stack_array.c     # 基于数组的实现（可选）
-│   └── test_stack.c
+│   └── test.c
 ├── queue/
 │   ├── queue.h
 │   ├── queue_list.c      # 基于链表的实现
 │   ├── queue_array.c     # 基于数组的实现（可选）
-│   └── test_queue.c
+│   └── test.c
 └── deque/
     ├── deque.h
     ├── deque_list.c
