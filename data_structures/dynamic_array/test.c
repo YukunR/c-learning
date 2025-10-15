@@ -1,5 +1,5 @@
 #include "dynamic_array.h"
-#include "../commen/commen.h"
+#include "../common/common.h"
 #include <assert.h>
 
 void test_dynamic_array_init_destroy()

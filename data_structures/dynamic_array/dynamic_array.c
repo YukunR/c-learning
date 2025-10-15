@@ -7,7 +7,7 @@ Implement of dynamic array.
 #include <stdlib.h>
 #include <stdbool.h>
 #include "dynamic_array.h"
-#include "../commen/commen.h"
+#include "../common/common.h"
 
 // init and destroy
 DynamicArray *array_create(size_t initial_capacity)

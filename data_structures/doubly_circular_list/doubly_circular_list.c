@@ -7,7 +7,7 @@ Implement of linked list.
 #include <stdlib.h>
 #include <stdbool.h>
 #include "doubly_circular_list.h"
-#include "../commen/commen.h"
+#include "../common/common.h"
 
 struct Node
 {
@@ -30,12 +30,14 @@ DoublyCircularList *list_create(int (*compare)(const void *a, const void *b))
     if (dcl == NULL)
     {
         fprintf(stderr, "Failed to allocate memory for LinkedList\n");
+        return NULL;
     }
     // set list head as a sentinel node
     Node *head = malloc(sizeof(Node));
     if (head == NULL)
     {
         fprintf(stderr, "Failed to allocate memory for LinkedList head\n");
+        return NULL;
     }
     head->data = NULL;
     head->prev = head;
@@ -44,6 +46,8 @@ DoublyCircularList *list_create(int (*compare)(const void *a, const void *b))
     dcl->head = head;
     dcl->compare = compare;
     dcl->length = 0;
+
+    return dcl;
 }
 
 void list_destroy(DoublyCircularList **list)
@@ -230,7 +234,7 @@ bool list_remove_at(DoublyCircularList *list, size_t index)
         fprintf(stderr, "Index %d out of bounds [0, %d)\n", index, list->length);
         return false;
     }
-    if (list->length == 1)
+    if (list_is_empty(list))
     {
         fprintf(stderr, "List is empty. Nothing to remove\n");
         return false;
@@ -439,12 +443,7 @@ size_t list_size(DoublyCircularList *list)
 
 bool list_is_empty(DoublyCircularList *list)
 {
-    if (!list)
-    {
-        fprintf(stderr, "List doesn't exist\n");
-        return false;
-    }
-    return list->length == 0;
+    return !list || list->head->next == list->head;
 }
 
 // list operation
@@ -519,4 +518,16 @@ void list_print_backward(DoublyCircularList *list, void (*print_func)(const void
         cur = cur->prev;
     }
     printf("\n");
+}
+
+void *list_pop_front(DoublyCircularList *lst) {
+    if (list_is_empty(lst)) return NULL;
+    Node *first = lst->head->next;
+    void *data  = first->data;
+    Node *second = first->next;
+    lst->head->next = second;
+    second->prev = lst->head;
+    free(first);                 // 只释放“节点”，不动 data
+    lst->length--;               // 如果维护 length，这里再减
+    return data;                 // data 交给上层释放
 }

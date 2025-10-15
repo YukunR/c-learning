@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "queue.h"
-#include "../../commen/commen.h"
+#include "../../common/common.h"
 
 void test_queue_fifo_property() {
     printf("=== test_queue_fifo_property ===\n");

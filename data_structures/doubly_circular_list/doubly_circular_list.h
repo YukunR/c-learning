@@ -38,6 +38,8 @@ void *list_get_head(DoublyCircularList *list);
 void *list_get_tail(DoublyCircularList *list);
 void *list_get_at(DoublyCircularList *list, size_t index);
 
+void *list_pop_front(DoublyCircularList *lst);
+
 // 修改操作
 bool list_set_at(DoublyCircularList *list, size_t index, void *data);
 

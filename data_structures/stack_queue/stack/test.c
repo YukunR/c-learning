@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "stack.h"
-#include "../../commen/commen.h"
+#include "../../common/common.h"
 
 void test_stack_basic_operations()
 {
